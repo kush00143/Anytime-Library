@@ -73,7 +73,7 @@ webpack ========================= 4.29.0
 	#bootstrap v4: https://getbootstrap.com/docs/4.0/getting-started/introduction/
 	#Material design: https://material.angular.io/components/categories
 	#Font Awesome: https://fontawesome.com/icons
------------------------------------------------------------------------------------
+
 
 ## User Role
 
@@ -121,7 +121,6 @@ description, social rating through goodreads or google or any other sources
  Sort the above list by issued date, book title, book author, user name
 
 
-=======================================================
 
 ## Further help
 
