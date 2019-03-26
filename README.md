@@ -1,4 +1,4 @@
-## AnytimeLibraryApp
+# AnytimeLibraryApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.1. using Google Firebase for authentication and firestore for database
 
@@ -18,39 +18,36 @@ Admin user can add new book and can modify the logged in user details and book d
 click on profile -> edit profile -> check admin option and save. Congrats you are an admin now:)
 
 ## Version Info
-Angular CLI: 7.3.5
-Node: 10.15.1
-Angular: 7.2.8
+Angular CLI: 7.3.5,
+Node: 10.15.1,
+Angular: 7.2.8,
 ... animations, common, compiler, compiler-cli, core, forms
 ... language-service, platform-browser, platform-browser-dynamic
 ... router
 
-Package                           Version
------------------------------------------------------------
-@angular-devkit/architect         0.13.5
-@angular-devkit/build-angular     0.13.5
-@angular-devkit/build-optimizer   0.13.5
-@angular-devkit/build-webpack     0.13.5
-@angular-devkit/core              7.3.5
-@angular-devkit/schematics        7.3.5
-@angular/cdk                      7.3.4
-@angular/cli                      7.3.5
-@angular/fire                     5.1.1
-@angular/material                 7.3.3
-@ngtools/webpack                  7.3.5
-@schematics/angular               7.3.5
-@schematics/update                0.13.5
-rxjs                              6.3.3
-typescript                        3.2.4
-webpack                           4.29.0
+Package ========================= Version
+@angular-devkit/architect ======= 0.13.5
+@angular-devkit/build-angular === 0.13.5
+@angular-devkit/build-optimizer = 0.13.5
+@angular-devkit/build-webpack === 0.13.5
+@angular-devkit/core ============ 7.3.5
+@angular-devkit/schematics ====== 7.3.5
+@angular/cdk ==================== 7.3.4
+@angular/cli ==================== 7.3.5
+@angular/fire =================== 5.1.1
+@angular/material ==============  7.3.3
+@ngtools/webpack ================ 7.3.5
+@schematics/angular ============= 7.3.5
+@schematics/update ============== 0.13.5
+rxjs ============================ 6.3.3
+typescript ====================== 3.2.4
+webpack ========================= 4.29.0
 
---------------------------------------------------------------------
 ## Official Documentation of how to use every component/feature.
 	#Angular: https://angular.io/docs
 	#bootstrap v4: https://getbootstrap.com/docs/4.0/getting-started/introduction/
 	#Material design: https://material.angular.io/components/categories
 	#Font Awesome: https://fontawesome.com/icons
-----------------------------------------------------------------------------------------------------
 
 #User Role
 User role will be :- 
@@ -70,11 +67,13 @@ User role will be :-
 Admin role will be able to:- 
  Add / Update (including no. of copies) / Delete books
  Add using ISBN entering the code manually
- Retrieve book details using ISBN through any public apis. Details include title, author, description, social rating through goodreads or google or any other sources
+ Retrieve book details using ISBN through any public apis. Details include title, author,
+description, social rating through goodreads or google or any other sources
  Allow admin to enter the details manually When book details are not available through public api.
  Display the list of books taken by users and filter by book title, book author, user id, user name, issued date
  Sort the above list by issued date, book title, book author, user name
 
+====================================================================================================
 
 
 ## Further help
