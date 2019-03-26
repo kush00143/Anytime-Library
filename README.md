@@ -102,7 +102,7 @@ User role will be :-
  Display user profile including picture, social ids, name, friends
 
 
-##Admin Role
+## Admin Role
 
 Admin role will be able to:- 
 
@@ -121,7 +121,7 @@ description, social rating through goodreads or google or any other sources
  Sort the above list by issued date, book title, book author, user name
 
 
-====================================================================================================
+=======================================================
 
 ## Further help
 
