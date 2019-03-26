@@ -73,8 +73,10 @@ webpack ========================= 4.29.0
 	#bootstrap v4: https://getbootstrap.com/docs/4.0/getting-started/introduction/
 	#Material design: https://material.angular.io/components/categories
 	#Font Awesome: https://fontawesome.com/icons
+-----------------------------------------------------------------------------------
 
-#User Role
+## User Role
+
 User role will be :- 
 
  Able to search for a book using Author or Title
@@ -93,14 +95,15 @@ User role will be :-
 
  Social features like
 
-  o Like & rate books
+  => o Like & rate books
 
-  o Review & recommend books to friends
+  => o Review & recommend books to friends
 
  Display user profile including picture, social ids, name, friends
 
 
-#Admin Role
+##Admin Role
+
 Admin role will be able to:- 
 
  Add / Update (including no. of copies) / Delete books
