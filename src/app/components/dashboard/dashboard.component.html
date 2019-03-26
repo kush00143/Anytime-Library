@@ -1,0 +1,114 @@
+<div *ngIf="!authenticated">
+  <ngb-carousel class="slidernew mt-2">
+    <ng-template ngbSlide>
+      <img src="assets/img/cover1.png" alt="first slide" class="img-fluid" />
+    </ng-template>
+    <ng-template ngbSlide>
+      <img src="assets/img/image1.jpg" alt="second slide" class="img-fluid" />
+    </ng-template>
+    <ng-template ngbSlide>
+      <img src="assets/img/library1.jpg" alt="third slide" class="img-fluid" />
+    </ng-template>
+    <ng-template ngbSlide>
+      <img src="assets/img/image2.jpg" alt="fourth slide" class="img-fluid" />
+    </ng-template>
+    <ng-template ngbSlide>
+      <img src="assets/img/library2.jpg" alt="fifth slide" class="img-fluid" />
+    </ng-template>
+    <ng-template ngbSlide>
+      <img src="assets/img/cover2.jpg" alt="sisth slide" class="img-fluid" />
+    </ng-template>
+
+    <ng-template ngbSlide>
+      <img src="assets/img/image3.jpg" alt="seventh slide" class="img-fluid" />
+    </ng-template>
+  </ngb-carousel>
+</div>
+
+<div class="spinner" *ngIf="!bookInfo && authenticated">
+  <!-- <mat-spinner></mat-spinner> -->
+  <app-spinner></app-spinner>
+</div>
+
+<div *ngIf="bookInfo && authenticated">
+  <div class="m-2">
+    <div class="card-books">
+      <mat-card class="ml-2">
+        <div style="float: left" class="ml-2">
+          <input
+            type="radio"
+            name="selectValue"
+            [value]="true"
+            [(ngModel)]="selectValue"
+          />
+          Title
+        </div>
+        <div style="float: left" class="ml-2">
+          <input
+            type="radio"
+            name="selectValue"
+            [value]="false"
+            [(ngModel)]="selectValue"
+          />
+          Author
+        </div>
+        <br />
+        <div>
+          <mat-form-field class="ml-2">
+            <input
+              matInput
+              placeholder="Search books by Title or Author..."
+              [(ngModel)]="searchText"
+            />
+          </mat-form-field>
+          <button mat-icon-button (click)="closeFilter()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </mat-card>
+    </div>
+
+    <div *ngIf="bookInfo?.length == 0">
+      <h2 style="text-align: center; margin-top: 20px; color: crimson">
+        No Books Found in Library!!
+      </h2>
+    </div>
+
+    <div
+      *ngFor="let book of (bookInfo | filter: searchText:selectValue)"
+      class="card-books"
+    >
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title class="example-text" [title]="book.title"
+            >Title: {{ book.title }}</mat-card-title
+          >
+          <mat-card-subtitle class="example-text" [title]="book.author"
+            >Author: {{ book.author }}</mat-card-subtitle
+          >
+        </mat-card-header>
+        <mat-card-content>
+          <img
+            class="example-image"
+            mat-card-image
+            [src]="book.coverUrl"
+            [alt]="book.title"
+          />
+          <div class="btn-details">
+            <button
+              mat-mini-fab
+              color="accent"
+              [routerLink]="['/book-details/' + book.isbn]"
+              routerLinkActive="router-link-active"
+            >
+              <mat-icon>fast_forward</mat-icon>
+            </button>
+          </div>
+          <mat-card-subtitle class="example-text" [title]="book.categories"
+            >Category: {{ book.categories }}</mat-card-subtitle
+          >
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

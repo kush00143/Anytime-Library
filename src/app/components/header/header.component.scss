@@ -1,0 +1,27 @@
+.app-spacer {
+  flex: 1 1 auto;
+}
+
+.header {
+  width: 100%;
+  height: 56px;
+  color: #fff;
+  position: fixed;
+  font-size: 20px;
+  will-change: transform;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  z-index: 1000;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+}

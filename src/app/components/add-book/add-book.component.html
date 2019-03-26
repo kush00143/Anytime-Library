@@ -1,0 +1,258 @@
+<div class="container-fluid">
+  <div class="container">
+    <div class="form-row">
+      <div class="col-md-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Search By ISBN</mat-label>
+          <input
+            matInput
+            name="isbn"
+            [(ngModel)]="this.isbn"
+            id="isbn"
+            type="number"
+            placeholder="Either 10 or 13 digit"
+          />
+
+          <mat-icon matSuffix
+            ><img width="25px;" height="25px;" src="./assets/img/bars-code.png"
+          /></mat-icon>
+          <mat-error></mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6 mt-2">
+        <button
+          class="btn btn-responsive m-2"
+          mat-raised-button
+          color="accent"
+          type="submit"
+          (click)="searchBookIsbn(isbn)"
+        >
+          Search Book
+        </button>
+      </div>
+    </div>
+    <hr *ngIf="errMsg" />
+    <mat-error *ngIf="errMsg">{{ errMsg }}</mat-error>
+    <hr *ngIf="errMsg" />
+
+    <mat-chip-list class="mat-chip-list-stacked" aria-orientation="vertical">
+      <mat-chip><mat-icon class="mr-2">book</mat-icon>Book Details</mat-chip>
+    </mat-chip-list>
+    <div class="form-row">
+      <form [formGroup]="bookForm">
+        <div class="container-fluid p-5">
+          <div class="p-2">
+            <div class="content">
+              <!-- Form Content -->
+              <table
+                class="example-full-width table-responsive"
+                cellspacing="2"
+              >
+                <tr>
+                  <td rowspan="6" class="mr-5">
+                    <mat-card class="example-card" *ngIf="bookInfo?.coverUrl">
+                      <mat-card-header>
+                        <mat-card-title
+                          class="example-text"
+                          [title]="bookInfo.title"
+                          >Title: {{ bookInfo.title }}</mat-card-title
+                        >
+                        <mat-card-subtitle class="example-subtext"
+                          >ISBN: {{ bookInfo.isbn }}</mat-card-subtitle
+                        >
+                      </mat-card-header>
+                      <img
+                        class="example-image"
+                        mat-card-image
+                        [src]="bookInfo.coverUrl"
+                        alt="Cover Photo of the Book"
+                      />
+                      <mat-card-subtitle
+                        class="example-text"
+                        [title]="bookInfo.author"
+                        >Author: {{ bookInfo.author }}</mat-card-subtitle
+                      >
+                    </mat-card>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <mat-form-field class="example-full-width">
+                      <input
+                        formControlName="title"
+                        id="title"
+                        [title]="bookInfo.title"
+                        matInput
+                        placeholder="Title"
+                        [(ngModel)]="bookInfo.title"
+                        required
+                      />
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field class="example-full-width">
+                      <input
+                        formControlName="author"
+                        matInput
+                        [title]="bookInfo.author"
+                        placeholder="Author"
+                        [(ngModel)]="bookInfo.author"
+                        required
+                      />
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field class="example-full-width">
+                      <input
+                        formControlName="isbn"
+                        matInput
+                        placeholder="ISBN [13-Digit]"
+                        [(ngModel)]="bookInfo.isbn"
+                        required
+                        [title]="bookInfo.isbn"
+                        [attr.disabled]="bookInfo.isbn?.length == 13"
+                      />
+                      <mat-hint align="end">13 Digit ISBN Number</mat-hint>
+                    </mat-form-field>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <mat-form-field class="example-full-width">
+                      <input
+                        formControlName="categories"
+                        matInput
+                        placeholder="Category"
+                        [(ngModel)]="bookInfo.categories"
+                        required
+                        [title]="bookInfo.categories"
+                      />
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field class="example-full-width">
+                      <input
+                        formControlName="publisher"
+                        matInput
+                        placeholder="Publisher"
+                        [(ngModel)]="bookInfo.publisher"
+                        required
+                        [title]="bookInfo.publisher"
+                      />
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field class="example-full-width">
+                      <input
+                        type="number"
+                        formControlName="ratings"
+                        matInput
+                        min="0"
+                        max="5"
+                        step="0.1"
+                        placeholder="Rating"
+                        [(ngModel)]="bookInfo.ratings"
+                        (keyup)="trimRating(bookInfo.ratings)"
+                        required
+                      />
+                      <mat-hint align="end"
+                        >{{ bookInfo.ratings || 0 }}/5</mat-hint
+                      >
+                    </mat-form-field>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <mat-form-field class="example-full-width">
+                      <input
+                        formControlName="year"
+                        matInput
+                        placeholder="Published On"
+                        [(ngModel)]="bookInfo.year"
+                        required
+                      />
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field class="example-full-width">
+                      <input
+                        formControlName="location"
+                        matInput
+                        placeholder="Location"
+                        [(ngModel)]="bookInfo.location"
+                        required
+                      />
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field class="example-full-width">
+                      <input
+                        type="number"
+                        formControlName="count"
+                        matInput
+                        min="1"
+                        max="100"
+                        placeholder="Count"
+                        [(ngModel)]="bookInfo.count"
+                        (keyup)="trimCount(bookInfo.count)"
+                        required
+                      />
+                      <mat-hint align="end"
+                        >Max: 100 | {{ bookInfo.count || 1 }}/100</mat-hint
+                      >
+                    </mat-form-field>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td colspan="3">
+                    <mat-form-field class="example-full-width">
+                      <input
+                        formControlName="coverUrl"
+                        matInput
+                        placeholder="Cover Url"
+                        [(ngModel)]="bookInfo.coverUrl"
+                        required
+                      />
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <mat-form-field class="example-full-width">
+                      <textarea
+                        formControlName="description"
+                        matInput
+                        placeholder="Description"
+                        [(ngModel)]="bookInfo.description"
+                        required
+                        [title]="bookInfo.description"
+                      ></textarea>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="4">
+                    <mat-divider class="m-2"></mat-divider>
+                    <button
+                      type="submit"
+                      mat-raised-button
+                      color="accent"
+                      [disabled]="!bookForm.valid"
+                      (click)="validate()"
+                      class="btn btn-responsive m-2"
+                    >
+                      Add Book To Library
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

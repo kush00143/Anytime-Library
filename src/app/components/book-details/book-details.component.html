@@ -1,0 +1,274 @@
+<div class="container">
+  <!-- If Book Details are NOT available -->
+  <div *ngIf="!bookInfo" class="spinner">
+    <!-- <mat-spinner></mat-spinner> -->
+    <app-spinner></app-spinner>
+  </div>
+
+  <!-- If Book Details are available -->
+  <div *ngIf="bookInfo">
+    <mat-card class="example-card">
+      <mat-card-title style="text-align: center">
+        <span class="mat-headline">{{ bookInfo.title }}</span>
+      </mat-card-title>
+      <hr />
+      <div class="left">
+        <img
+          class="image-responsive mat-image"
+          height="350px"
+          [src]="bookInfo.coverUrl"
+        />
+        <br />
+        <br />
+        <div aria-label="like-share" style="text-align: center">
+          <button
+            class="mr-2"
+            matTooltip="Share"
+            mat-mini-fab
+            (click)="shareBook(bookInfo.coverUrl)"
+          >
+            <mat-icon>share</mat-icon>
+          </button>
+          <button
+            class="mr-2"
+            matTooltip="Like"
+            mat-mini-fab
+            [hidden]="liked"
+            (click)="likeBook(liked)"
+          >
+            <mat-icon>thumb_up_alt</mat-icon>
+          </button>
+          <button
+            class="mr-2"
+            matTooltip="UnLike"
+            mat-mini-fab
+            [hidden]="!liked"
+            (click)="likeBook(liked)"
+          >
+            <mat-icon>thumb_down_alt</mat-icon>
+          </button>
+          <mat-hint class="mr-2">Likes : {{ likeCount }}</mat-hint>
+        </div>
+      </div>
+      <div class="right">
+        <mat-list>
+          <mat-list-item>
+            <span
+              ><img
+                width="20px;"
+                height="20px;"
+                src="./assets/img/bars-code.png"
+            /></span>
+            <span class="m-2"> ISBN : </span>
+            <span class="book-data"> {{ bookInfo.isbn }} </span></mat-list-item
+          >
+          <mat-list-item>
+            <span><mat-icon>account_box</mat-icon> </span>
+            <span class="m-2"> Author : </span>
+            <span class="book-data">
+              {{ bookInfo.author }}
+            </span></mat-list-item
+          >
+          <mat-list-item>
+            <span><mat-icon>category</mat-icon> </span>
+            <span class="m-2"> Category : </span>
+            <span class="book-data">
+              {{ bookInfo.categories }}
+            </span></mat-list-item
+          >
+          <mat-list-item>
+            <span><mat-icon>publish</mat-icon> </span>
+            <span class="m-2"> Publisher : </span>
+            <span class="book-data">
+              {{ bookInfo.publisher }}
+            </span></mat-list-item
+          >
+          <mat-list-item>
+            <span><mat-icon>date_range</mat-icon> </span>
+            <span class="m-2"> Published On : </span>
+            <span class="book-data"> {{ bookInfo.year }} </span></mat-list-item
+          >
+          <mat-list-item>
+            <span><mat-icon>stars</mat-icon> </span>
+            <span class="m-2"> Rating : </span>
+            <span class="book-data">
+              <ngb-rating [(rate)]="bookInfo.ratings" [readonly]="true" max="5">
+                <ng-template let-fill="fill" let-index="index">
+                  <span class="star" [class.filled]="fill === 100"
+                    ><span class="half" [style.width.%]="fill">&#9733;</span
+                    >&#9733;</span
+                  >
+                </ng-template>
+              </ngb-rating>
+              ({{ bookInfo.ratings }}/5)
+            </span></mat-list-item
+          >
+          <mat-list-item>
+            <span><mat-icon>file_copy</mat-icon> </span>
+            <span class="m-2"> No. Of Copies : </span>
+            <span class="book-data"> {{ bookInfo.count }} </span></mat-list-item
+          >
+          <mat-list-item>
+            <span><mat-icon>location_on</mat-icon> </span>
+            <span class="m-2"> Location : </span>
+            <span class="book-data">
+              {{ bookInfo.location }}
+            </span></mat-list-item
+          >
+        </mat-list>
+      </div>
+      <br />
+      <mat-toolbar>Description</mat-toolbar>
+      <p class="mt-2">{{ bookInfo.description }}</p>
+      <p *ngIf="!bookInfo.description">No description for this book!</p>
+
+      <mat-card-actions>
+        <button
+          [routerLink]="['/']"
+          routerLinkActive="router-link-active"
+          color="accent"
+          mat-raised-button
+          class="btn btn-responsive"
+        >
+          <mat-icon>view_comfy</mat-icon> All Books
+        </button>
+        <button
+          *ngIf="!issued"
+          (click)="issueBook()"
+          color="accent"
+          mat-raised-button
+          class="btn btn-responsive mt-2"
+        >
+          <mat-icon>book</mat-icon> Issue Book
+        </button>
+        <button
+          *ngIf="issued"
+          (click)="renewBook()"
+          color="accent"
+          mat-raised-button
+          class="btn btn-responsive mt-2"
+        >
+          <mat-icon>book</mat-icon> Renew Book
+        </button>
+        <button
+          *ngIf="issued"
+          (click)="returnBook()"
+          color="accent"
+          mat-raised-button
+          class="btn btn-responsive mt-2"
+        >
+          <mat-icon>book</mat-icon> Return Book
+        </button>
+        <button
+          *ngIf="admin"
+          color="primary"
+          mat-raised-button
+          class="btn btn-responsive ml-5 mt-2"
+          [routerLink]="['/edit-book/' + bookInfo.isbn]"
+          routerLinkActive="router-link-active"
+        >
+          <mat-icon>edit</mat-icon> Edit Book
+        </button>
+        <button
+          *ngIf="admin"
+          (click)="deleteBook(bookInfo.isbn)"
+          color="warn"
+          mat-raised-button
+          class="btn btn-responsive ml-2 mt-2"
+        >
+          <mat-icon>delete</mat-icon> Delete Book
+        </button>
+      </mat-card-actions>
+    </mat-card>
+    <br />
+
+    <!-- Comments/Review Section   -->
+    <mat-card class="example-card">
+      <mat-card-title style="text-align: center">
+        <span
+          matBadgeColor="accent"
+          [matBadgeHidden]="!badgeVisible"
+          [matBadge]="commentsLength"
+          class="mat-headline"
+          matBadgeOverlap="false"
+          >Reviews</span
+        >
+      </mat-card-title>
+      <hr />
+      <mat-card-content>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Write your review :</mat-label>
+          <textarea
+            matInput
+            placeholder="Comments..."
+            name="description"
+            id="description"
+            rows="3"
+            [(ngModel)]="comment.description"
+            required
+          >
+          </textarea>
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="outline">
+          <mat-label>Rate this Book :</mat-label>
+          <input
+            type="number"
+            matInput
+            name="ratings"
+            id="ratings"
+            min="0"
+            max="5"
+            step="0.1"
+            placeholder="Rating"
+            [(ngModel)]="comment.ratings"
+            (keyup)="trimRating(comment.ratings)"
+            required
+          />
+          <mat-hint align="end">{{ comment.ratings || 0 }}/5</mat-hint>
+        </mat-form-field>
+      </mat-card-content>
+      <button
+        (click)="submitComments()"
+        mat-raised-button
+        color="accent"
+        [disabled]="!(comment.description && comment.ratings)"
+      >
+        <mat-icon>near_me</mat-icon>
+        Submit Review
+      </button>
+    </mat-card>
+    <br />
+    <!-- Submitted Reviews -->
+    <div *ngIf="comments">
+      <div *ngFor="let comment of comments">
+        <mat-card class="comment-card">
+          <mat-card-content>
+            <p style="word-wrap: break-word;">{{ comment.description }}</p>
+            <hr />
+            <p>
+              <span class="commentBottom">Posted By: </span>
+              <span class="commentValue"
+                ><b> {{ comment?.user?.name }} </b>
+              </span>
+              <span class="commentBottom">Posted On: </span>
+              <span class="commentValue"
+                ><i
+                  ><b> {{ comment?.time.toDate() | date: "short" }} </b></i
+                ></span
+              >
+              <button
+                *ngIf="admin"
+                mat-icon-button
+                color="warn"
+                (click)="deleteComment(comment.id)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

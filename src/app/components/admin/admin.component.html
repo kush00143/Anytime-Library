@@ -1,0 +1,204 @@
+<div class="container">
+  <div class="spinner" *ngIf="!(issuedBooks && users && books)">
+    <!-- <mat-spinner></mat-spinner> -->
+    <app-spinner></app-spinner>
+  </div>
+
+  <div *ngIf="issuedBooks && users && books">
+    <mat-tab-group color="accent">
+      <!-- User Details -->
+      <div class="table-responsive" *ngIf="users">
+        <mat-tab label="Users">
+          <h1 class="display-7 mt-3" style="text-align: center">
+            Logged Users List
+          </h1>
+
+          <table class="table table-hover table-dark">
+            <thead>
+              <tr>
+                <th class="text-nowrap" scope="col">#</th>
+                <th class="text-nowrap" scope="col">User ID</th>
+                <th class="text-nowrap" scope="col">Name</th>
+                <th class="text-nowrap" scope="col">Admin Role</th>
+                <th class="text-nowrap" scope="col">Options</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="users?.length == 0">
+                <td colspan="5" style="text-align: center; color: crimson">
+                  No Records Found !!
+                </td>
+              </tr>
+              <tr
+                *ngFor="let user of users; let i = index"
+                [attr.data-index]="i"
+              >
+                <th class="text-nowrap" scope="row">{{ i + 1 }}</th>
+                <td>{{ user.userId }}</td>
+                <td>
+                  {{ user.name }}
+                </td>
+                <td>
+                  <mat-checkbox
+                    checked="user.role.admin"
+                    [(ngModel)]="user.role.admin"
+                    disabled
+                  ></mat-checkbox>
+                </td>
+                <td class="text-nowrap">
+                  <button
+                    mat-icon-button
+                    title="Edit the profile"
+                    style="color:green;"
+                    [routerLink]="['/profile/' + user?.userId]"
+                    routerLinkActive="router-link-active"
+                  >
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button
+                    mat-icon-button
+                    title="Delete the user"
+                    style="color:red;"
+                    (click)="deleteUser(user)"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-tab>
+      </div>
+
+      <!--Library Book Details -->
+      <div class="table-responsive" *ngIf="books">
+        <mat-tab label="Books">
+          <h1 class="display-7 mt-3" style="text-align: center">
+            Library Book List
+          </h1>
+          <table class="table table-hover table-dark">
+            <thead>
+              <tr>
+                <th class="text-nowrap" scope="col">#</th>
+                <th class="text-nowrap" scope="col">Book ID</th>
+                <th scope="col">Title</th>
+                <th class="text-nowrap" scope="col">Options</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="books?.length == 0">
+                <td colspan="4" style="text-align: center; color: crimson">
+                  No Records Found !!
+                </td>
+              </tr>
+              <tr
+                *ngFor="let book of books; let i = index"
+                [attr.data-index]="i"
+              >
+                <th class="text-nowrap" scope="row">{{ i + 1 }}</th>
+                <td>{{ book.isbn }}</td>
+                <td>{{ book.title }}</td>
+                <td class="text-nowrap">
+                  <button
+                    mat-icon-button
+                    title="Edit the Book"
+                    style="color:green;"
+                    [routerLink]="['/edit-book/' + book.isbn]"
+                    routerLinkActive="router-link-active"
+                  >
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button
+                    mat-icon-button
+                    title="Delete the Book"
+                    style="color:red;"
+                    (click)="deleteBook(book)"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="4" style="text-align: center;">
+                  <button
+                    color="accent"
+                    mat-raised-button
+                    matTooltip="Add Book"
+                    [routerLink]="['/add-book']"
+                    routerLinkActive="router-link-active"
+                  >
+                    <mat-icon>add_circle_outline</mat-icon> Add Book
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-tab>
+      </div>
+
+      <!--Issued Book Details -->
+      <div class="table-responsive" *ngIf="issuedBooks">
+        <mat-tab label="Issued Books">
+          <h1 class="display-7 mt-3" style="text-align: center">
+            Issued Book List
+          </h1>
+          <table class="table table-hover table-dark">
+            <thead>
+              <tr>
+                <th class="text-nowrap" scope="col">#</th>
+                <th class="text-nowrap" scope="col">Book Title</th>
+                <th class="text-nowrap" scope="col">Author</th>
+                <th class="text-nowrap" scope="col">User ID</th>
+                <th class="text-nowrap" scope="col">User Name</th>
+                <th class="text-nowrap" scope="col">Issued Date</th>
+                <th class="text-nowrap" scope="col">Days Left</th>
+                <th class="text-nowrap" scope="col">Options</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="issuedBooks?.length == 0">
+                <td colspan="8" style="text-align: center; color: crimson">
+                  No Records Found !!
+                </td>
+              </tr>
+              <tr
+                *ngFor="let issue of issuedBooks; let i = index"
+                [attr.data-index]="i"
+              >
+                <th class="text-nowrap" scope="row">{{ i + 1 }}</th>
+                <td>{{ issue.book?.title }}</td>
+                <td>{{ issue.book?.author }}</td>
+                <td>{{ issue.user?.userId }}</td>
+                <td class="text-nowrap">{{ issue.user?.name }}</td>
+                <td class="text-nowrap">
+                  {{ issue.issueDate.toDate() | date: "short" }}
+                </td>
+                <td *ngIf="issue?.issueDate" class="text-nowrap">
+                  {{ getDifference(issue?.issueDate.toDate()) }}
+                </td>
+                <td class="text-nowrap">
+                  <button
+                    mat-icon-button
+                    title="Renew the book for 10 more days"
+                    style="color:green;"
+                    (click)="renewBook(issue)"
+                  >
+                    <mat-icon>refresh</mat-icon>
+                  </button>
+                  <button
+                    mat-icon-button
+                    title="Return the book"
+                    style="color:red;"
+                    (click)="returnBook(issue)"
+                  >
+                    <mat-icon>reply</mat-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-tab>
+      </div>
+    </mat-tab-group>
+  </div>
+</div>

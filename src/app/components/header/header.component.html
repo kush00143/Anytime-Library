@@ -1,0 +1,50 @@
+<header class="header">
+  <mat-toolbar color="accent">
+    <mat-toolbar-row>
+      <a [routerLink]="['/']" routerLinkActive="router-link-active">
+        <img class="logo mr-1" src="assets/img/app-logo-new.png" alt="logo" />
+        <span style="color: black">Anytime Library</span>
+      </a>
+      <span class="app-spacer"></span>
+
+      <button
+        mat-button
+        matTooltip="Admin"
+        *ngIf="(isLoggedIn | async) && authenticated && admin"
+        [routerLink]="['/admin']"
+        routerLinkActive="router-link-active"
+      >
+        <mat-icon>account_box</mat-icon>
+      </button>
+      <button
+        mat-button
+        matTooltip="User"
+        *ngIf="(isLoggedIn | async) && authenticated"
+        [routerLink]="['/profile/' + user?.userId]"
+        routerLinkActive="router-link-active"
+      >
+        <mat-icon>face</mat-icon>
+      </button>
+      <button
+        mat-button
+        matTooltip="Logout"
+        *ngIf="(isLoggedIn | async) && authenticated"
+        [routerLink]="['']"
+        routerLinkActive="router-link-active"
+        (click)="logout()"
+      >
+        <mat-icon>power_settings_new</mat-icon>
+      </button>
+      <button
+        mat-button
+        matTooltip="Login"
+        *ngIf="!((isLoggedIn | async) && authenticated)"
+        [routerLink]="['']"
+        routerLinkActive="router-link-active"
+        (click)="openDialog()"
+      >
+        <mat-icon>input</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</header>

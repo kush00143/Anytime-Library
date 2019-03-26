@@ -1,0 +1,48 @@
+<h1 mat-dialog-title align="center">
+  <img class="logo mr-2" src="assets/img/app-logo-new.png" alt="logo" /> Login
+</h1>
+<hr style="height: 3px; border-color: brown" />
+<div *ngIf="!terms">
+  <h5>Please accept our terms and conditions to login</h5>
+</div>
+
+<div *ngIf="terms">
+  <button
+    mat-raised-button
+    [mat-dialog-close]="true"
+    class="login-btn"
+    (click)="signInWithFacebook()"
+  >
+    <i class="fab fa-facebook-f mr-2"></i> Login with Facebook
+  </button>
+  <button
+    mat-raised-button
+    [mat-dialog-close]="true"
+    class="login-btn"
+    (click)="signInWithTwitter()"
+  >
+    <i class="fab fa-twitter mr-2"></i> Login with Twitter
+  </button>
+  <button
+    mat-raised-button
+    [mat-dialog-close]="true"
+    class="login-btn"
+    (click)="signInWithGithub()"
+  >
+    <i class="fab fa-github mr-2"></i> Login with Github
+  </button>
+  <button
+    mat-raised-button
+    [mat-dialog-close]="true"
+    class="login-btn"
+    (click)="signInWithGoogle()"
+  >
+    <i class="fab fa-google mr-2"></i> Login with Google
+  </button>
+</div>
+<hr class="mt-5" style="height: 3px; border-color: brown" />
+
+<h6 class="text-terms">
+  <mat-checkbox [checked]="terms" [(ngModel)]="terms"></mat-checkbox>
+  By Login, you agree to our Terms and Conditions.
+</h6>

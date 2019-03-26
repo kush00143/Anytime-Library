@@ -1,0 +1,31 @@
+.pic-card {
+  max-width: 250px;
+  max-height: 300px;
+  min-width: 200px;
+  min-height: 250px;
+  float: left;
+}
+
+.user-info {
+  float: left;
+}
+
+.profile {
+  margin: 5px;
+  margin-top: 10px;
+}
+
+.example-card {
+  min-height: 350px;
+}
+
+.example-full-width {
+  width: 100%;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.table-responsive {
+  width: 100%;
+}

@@ -1,0 +1,220 @@
+<div class="container-fluid">
+  <div class="container">
+    <div *ngIf="!bookInfo" class="spinner">
+      <!-- <mat-spinner></mat-spinner> -->
+      <app-spinner></app-spinner>
+    </div>
+
+    <div *ngIf="bookInfo">
+      <div class="form-row">
+        <h1 class="display-7" style="text-align: center">
+          Edit Book Details
+        </h1>
+        <form #bookForm="ngForm" *ngIf="bookInfo">
+          <div class="container-fluid p-5">
+            <div class="p-2">
+              <div class="content">
+                <!-- Form Content -->
+                <table
+                  class="example-full-width table-responsive"
+                  cellspacing="2"
+                >
+                  <tr>
+                    <td rowspan="6" class="mr-5">
+                      <mat-card class="example-card" *ngIf="bookInfo?.coverUrl">
+                        <mat-card-header>
+                          <mat-card-title class="example-text"
+                            >Title: {{ bookInfo.title }}</mat-card-title
+                          >
+                          <mat-card-subtitle class="example-subtext"
+                            >ISBN: {{ bookInfo.isbn }}</mat-card-subtitle
+                          >
+                        </mat-card-header>
+                        <img
+                          class="example-image"
+                          mat-card-image
+                          [src]="bookInfo.coverUrl"
+                          alt="Cover Photo of the Book"
+                        />
+                        <mat-card-subtitle class="example-text"
+                          >Author: {{ bookInfo.author }}</mat-card-subtitle
+                        >
+                      </mat-card>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <mat-form-field class="example-full-width">
+                        <input
+                          name="title"
+                          id="title"
+                          matInput
+                          placeholder="Title"
+                          [(ngModel)]="bookInfo.title"
+                          required
+                        />
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field class="example-full-width">
+                        <input
+                          name="author"
+                          matInput
+                          placeholder="Author"
+                          [(ngModel)]="bookInfo.author"
+                          required
+                        />
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field class="example-full-width">
+                        <input
+                          name="isbn"
+                          matInput
+                          maxlength="13"
+                          minlength="13"
+                          placeholder="ISBN [13-Digit]"
+                          [(ngModel)]="bookInfo.isbn"
+                          required
+                        />
+                        <mat-hint align="end">13 Digit ISBN Number</mat-hint>
+                      </mat-form-field>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <mat-form-field class="example-full-width">
+                        <input
+                          name="categories"
+                          matInput
+                          placeholder="Category"
+                          [(ngModel)]="bookInfo.categories"
+                          required
+                        />
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field class="example-full-width">
+                        <input
+                          name="publisher"
+                          matInput
+                          placeholder="Publisher"
+                          [(ngModel)]="bookInfo.publisher"
+                          required
+                        />
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field class="example-full-width">
+                        <input
+                          type="number"
+                          name="ratings"
+                          matInput
+                          min="0"
+                          max="5"
+                          step="0.1"
+                          placeholder="Rating"
+                          [(ngModel)]="bookInfo.ratings"
+                          (keyup)="trimRating(bookInfo.ratings)"
+                          required
+                        />
+                        <mat-hint align="end"
+                          >{{ bookInfo.ratings || 0 }}/5</mat-hint
+                        >
+                      </mat-form-field>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <mat-form-field class="example-full-width">
+                        <input
+                          name="year"
+                          matInput
+                          placeholder="Published On"
+                          [(ngModel)]="bookInfo.year"
+                          required
+                        />
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field class="example-full-width">
+                        <input
+                          name="location"
+                          matInput
+                          placeholder="Location"
+                          [(ngModel)]="bookInfo.location"
+                          required
+                        />
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field class="example-full-width">
+                        <input
+                          type="number"
+                          name="count"
+                          matInput
+                          min="1"
+                          max="100"
+                          placeholder="Count"
+                          [(ngModel)]="bookInfo.count"
+                          (keyup)="trimCount(bookInfo.count)"
+                          required
+                        />
+                        <mat-hint align="end"
+                          >Max: 100 | {{ bookInfo.count || 1 }}/100</mat-hint
+                        >
+                      </mat-form-field>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="3">
+                      <mat-form-field class="example-full-width">
+                        <input
+                          name="coverUrl"
+                          matInput
+                          placeholder="Cover Url"
+                          [(ngModel)]="bookInfo.coverUrl"
+                          required
+                        />
+                      </mat-form-field>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">
+                      <mat-form-field class="example-full-width">
+                        <textarea
+                          name="description"
+                          matInput
+                          placeholder="Description"
+                          [(ngModel)]="bookInfo.description"
+                          required
+                        ></textarea>
+                      </mat-form-field>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="4">
+                      <mat-divider class="m-2"></mat-divider>
+                      <button
+                        type="submit"
+                        mat-raised-button
+                        color="accent"
+                        [disabled]="!bookForm.valid"
+                        (click)="updateBook()"
+                      >
+                        Update Book in Library
+                      </button>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

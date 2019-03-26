@@ -1,0 +1,81 @@
+<div *ngIf="data.title != 'share'">
+  <h2 mat-dialog-title>{{ data.title }}</h2>
+  <hr />
+  <mat-dialog-content>
+    {{ data.content }}
+    <br />
+  </mat-dialog-content>
+  <hr />
+  <mat-dialog-actions>
+    <button
+      *ngIf="data.button"
+      mat-raised-button
+      class="btn btn-primary"
+      (click)="onConfirm()"
+    >
+      Confirm</button
+    >&nbsp;
+    <button
+      *ngIf="data.button"
+      mat-raised-button
+      class="btn btn-primary"
+      (click)="onCancel()"
+    >
+      Cancel
+    </button>
+    <button
+      *ngIf="!data.button"
+      mat-raised-button
+      class="btn btn-primary btn-block"
+      (click)="onCancel()"
+    >
+      Ok
+    </button>
+  </mat-dialog-actions>
+</div>
+
+<div *ngIf="data.title == 'share'" style="max-width: 350px;">
+  <h2 mat-dialog-title>{{ data.title | titlecase }}</h2>
+  <hr />
+  <mat-dialog-content>
+    {{ data.content }}
+    <br />
+    <br />
+    <div class="text-center">
+      <span class="cover-share"
+        ><img class="cover-share img-responsive" [src]="imageUrl"
+      /></span>
+    </div>
+    <br />
+    <share-buttons
+      [theme]="'modern-light'"
+      [include]="[
+        'facebook',
+        'twitter',
+        'linkedin',
+        'pinterest',
+        'messenger',
+        'whatsapp',
+        'email',
+        'copy'
+      ]"
+      [show]="5"
+      [showText]="true"
+      [size]="-2"
+      [url]="repoUrl"
+      [title]="'Anytime Library'"
+      [description]="'Share this book'"
+      [image]="imageUrl"
+      [autoSetMeta]="false"
+      [showIcon]="true"
+    ></share-buttons>
+    <br />
+    <br />
+  </mat-dialog-content>
+  <hr />
+  <mat-dialog-actions>
+    <button mat-raised-button class="btn btn-primary" (click)="onCancel()">
+      Cancel
+    </button>
+  </mat-dialog-actions>
+</div>
