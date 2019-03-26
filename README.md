@@ -2,7 +2,7 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.1. using Google Firebase for authentication and firestore for database
 
-Live Demo at : https://anytimelibrary-a79ac.firebaseapp.com
+Live Demo at : https://anytime-library-app-e1aa2.firebaseapp.com
 
 ## Explaination of project
 
