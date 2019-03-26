@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyC5QIkoewu9pf4GkVAZ3PdPprfGGdTl9MU',
-    authDomain: 'anytime-library-app-e1aa2.firebaseapp.com',
-    databaseURL: 'https://anytime-library-app-e1aa2.firebaseio.com',
-    projectId: 'anytime-library-app-e1aa2',
-    storageBucket: 'anytime-library-app-e1aa2.appspot.com',
-    messagingSenderId: '1053542774970'
+    apiKey: 'yourAPIkey',
+    authDomain: 'yourdomain.firebaseapp.com',
+    databaseURL: 'https://your_appname.firebaseio.com',
+    projectId: 'project_id',
+    storageBucket: '',
+    messagingSenderId: 'message_sending_Id'
   }
 };
 
